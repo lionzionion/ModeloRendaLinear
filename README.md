@@ -13,7 +13,7 @@
 
 1.1.5. Avalie os parâmetros e veja se parecem fazer sentido prático.
 
-python```
+python ```
 
 import pandas as pd
 import statsmodels.api as sm
@@ -38,7 +38,6 @@ result = model.fit()
 
 Imprimir os resultados
 print(result.summary())
-
 ```
 
 
