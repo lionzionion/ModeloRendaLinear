@@ -14,6 +14,7 @@
 1.1.5. Avalie os parâmetros e veja se parecem fazer sentido prático.
 
 python```
+
 import pandas as pd
 import statsmodels.api as sm
 import patsy
@@ -37,6 +38,7 @@ result = model.fit()
 
 # Imprimir os resultados
 print(result.summary())
+
 ```
 
 
