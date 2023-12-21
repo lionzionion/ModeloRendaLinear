@@ -1,41 +1,24 @@
 # ModeloRendaLinear
-## 1. Ajuste um modelo para prever log(renda) considerando todas as covariáveis disponíveis.
 
-1.1. Utilizando os recursos do Patsy, coloque as variáveis qualitativas como dummies.
+## Carregar Dados:
 
-1.1.1. Importe as bibliotecas necessárias (pandas, statsmodels, patsy, numpy).
+O script começa carregando um conjunto de dados de um arquivo CSV chamado 'previsao_de_renda.csv' usando a biblioteca Pandas. Os dados são armazenados em um DataFrame chamado df.
+## Identificar Variáveis Categóricas:
 
-1.1.2. Carregue os dados do arquivo 'previsao_de_renda.csv' usando o pandas.
+Identifica variáveis categóricas no conjunto de dados selecionando colunas com o tipo de dado 'object'. Essas colunas categóricas são armazenadas na variável categorical_columns.
+## Criar Fórmula Patsy:
 
-1.1.3. Identifique variáveis categóricas e crie uma fórmula Patsy com dummies.
+Uma fórmula é criada usando a biblioteca Patsy para configurar um modelo de regressão. A variável dependente é o logaritmo natural da coluna 'renda'. Variáveis categóricas são transformadas em variáveis dummy, e a referência de tratamento é definida para a moda de cada variável categórica.
+## Criar Matrizes de Design:
 
-1.1.4. Crie as matrizes de design e ajuste o modelo de regressão múltipla.
+Usando a fórmula Patsy, são criadas matrizes de design y (variável dependente) e X (variáveis independentes). Essas matrizes são essenciais para a análise de regressão.
+## Ajustar o Modelo de Regressão:
 
-1.1.5. Avalie os parâmetros e veja se parecem fazer sentido prático.
+O script utiliza a biblioteca Statsmodels para realizar uma regressão de Mínimos Quadrados Ordinários (OLS). O modelo é ajustado usando as matrizes de design (y e X).
+## Imprimir Resumo do Modelo:
 
-import pandas as pd
-import statsmodels.api as sm
-import patsy
-import numpy as np
-
-# Carregar os dados
-df = pd.read_csv('previsao_de_renda.csv')
-
-# Identificar variáveis categóricas
-categorical_columns = df.select_dtypes(include=['object']).columns
-
-# Criar a fórmula com o Patsy, incluindo variáveis qualitativas como dummies
-formula = 'np.log(renda) ~ ' + ' + '.join(['C({0}, Treatment(reference="{1}"))'.format(column, df[column].mode().iloc[0]) for column in categorical_columns.difference(['renda'])])
-
-# Criar as matrizes de design usando patsy
-y, X = patsy.dmatrices(formula, df, return_type='dataframe')
-
-# Ajustar o modelo de regressão múltipla
-model = sm.OLS(y, X)
-result = model.fit()
-
-# Imprimir os resultados
-print(result.summary())
+Finalmente, os resultados da análise de regressão são impressos, incluindo medidas estatísticas como coeficientes, valores-p, R-squared e outras informações relevantes. Este resumo fornece insights sobre as relações entre variáveis na previsão do logaritmo natural da renda.
+Observação:
 
 
 
